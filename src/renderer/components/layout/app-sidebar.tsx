@@ -719,14 +719,15 @@ export const AgentMenuItem = React.forwardRef<
             data-testid={`agent-item-${agent.slug}`}
           >
             <span className="flex items-center gap-1.5 min-w-0">
+              <AgentStatus
+                iconOnly
+                status={agent.status}
+                hasActiveSessions={sessions?.some((s) => s.isActive) || (agent.hasActiveSessions ?? false)}
+                hasSessionsAwaitingInput={sessions?.some((s) => s.isAwaitingInput) || (agent.hasSessionsAwaitingInput ?? false)}
+              />
               <span className="truncate">{agent.name}</span>
               {isShared && <Users className="h-3 w-3 shrink-0 text-muted-foreground" />}
             </span>
-            <AgentStatus
-              status={agent.status}
-              hasActiveSessions={sessions?.some((s) => s.isActive) || (agent.hasActiveSessions ?? false)}
-              hasSessionsAwaitingInput={sessions?.some((s) => s.isAwaitingInput) || (agent.hasSessionsAwaitingInput ?? false)}
-            />
           </SidebarMenuButton>
         </AgentContextMenu>
         {hasExpandableContent ? (
